@@ -33,7 +33,7 @@ export default function Application(props) {
     };
 
     return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
-      console.log(`AXIOS RESULTS: ${res}`);
+      console.log(`AXIOS RESULTS FOR ADDING: ${res}`);
       setState({ ...state, appointments });
     });
   }
@@ -79,9 +79,6 @@ export default function Application(props) {
       axios.get("/api/appointments"),
       axios.get("/api/interviewers"),
     ]).then((all) => {
-      console.log(all[0].data);
-      console.log(all[1].data);
-      console.log(all[2].data);
       setState((prev) => ({
         ...prev,
         days: all[0].data,
