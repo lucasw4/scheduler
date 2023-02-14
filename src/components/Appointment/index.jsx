@@ -1,5 +1,6 @@
 import useVisualMode from "hooks/useVisualMode";
 import React, { Fragment } from "react";
+import Confirm from "./Confirm";
 import Empty from "./Empty";
 import Form from "./Form";
 import Header from "./Header";
@@ -12,6 +13,7 @@ const Appointment = (props) => {
   const SHOW = "SHOW";
   const CREATE = "CREATE";
   const SAVING = "SAVING";
+  const CONFIRM = "CONFIRM";
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -26,6 +28,11 @@ const Appointment = (props) => {
     props.bookInterview(props.id, interview).then(() => {
       transition(SHOW);
     });
+  }
+
+  function deleteInterview() {
+    transition(SAVING);
+    props.cancelInterview(props.id).then(() => transition(EMPTY));
   }
 
   return (
@@ -51,6 +58,14 @@ const Appointment = (props) => {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={() => transition(CONFIRM)}
+        />
+      )}
+      {mode === CONFIRM && (
+        <Confirm
+          onConfirm={deleteInterview}
+          onCancel={back}
+          message='Confirm deletion?'
         />
       )}
     </article>
