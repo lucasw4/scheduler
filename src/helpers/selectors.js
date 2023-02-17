@@ -49,3 +49,7 @@ export function getInterview(state, interview) {
     interviewer: interviewerData,
   };
 }
+
+export function getDay(day, days) {
+  return days.filter((d) => d.name === day)[0];
+}

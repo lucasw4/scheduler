@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getDay } from "helpers/selectors";
 import { useEffect, useState } from "react";
 
 export default function useApplicationData() {
@@ -26,6 +27,17 @@ export default function useApplicationData() {
     });
   }, []);
 
+  function getDayIndex(day) {
+    const daysOfWeek = {
+      Monday: 0,
+      Tuesday: 1,
+      Wednesday: 2,
+      Thursday: 3,
+      Friday: 4,
+    };
+    return daysOfWeek[day];
+  }
+
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -37,9 +49,24 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
+    console.log(appointments);
+
+    let foundDay = getDay(state.day, state.days);
+    const dayIndex = getDayIndex(state.day);
+
+    if (!state.appointments[id].interview) {
+      foundDay = {
+        ...foundDay,
+        spots: foundDay.spots - 1,
+      };
+    }
+
+    let days = state.days;
+    days[dayIndex] = foundDay;
+
     return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
       console.log(`AXIOS RESULTS FOR ADDING: ${res}`);
-      setState({ ...state, appointments });
+      setState({ ...state, appointments, days });
     });
   }
 
@@ -54,9 +81,20 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
+    let foundDay = getDay(state.day, state.days);
+    const dayIndex = getDayIndex(state.day);
+
+    foundDay = {
+      ...foundDay,
+      spots: foundDay.spots + 1,
+    };
+
+    let days = state.days;
+    days[dayIndex] = foundDay;
+
     return axios.delete(`/api/appointments/${id}`, appointment).then((res) => {
       console.log(`AXIOS RESULT FOR DELETING: ${res}`);
-      setState({ ...state, appointments });
+      setState({ ...state, appointments, days });
     });
   }
 
