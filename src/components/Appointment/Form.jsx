@@ -10,6 +10,7 @@ const Form = (props) => {
   const reset = function () {
     setStudent("");
     setInterviewer(null);
+    setError("");
   };
 
   const cancel = function () {
@@ -28,6 +29,7 @@ const Form = (props) => {
       return;
     }
 
+    setError("");
     props.onSave(student, interviewer);
   }
 
