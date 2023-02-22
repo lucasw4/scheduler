@@ -1,5 +1,5 @@
 import useVisualMode from "hooks/useVisualMode";
-import React, { Fragment } from "react";
+import React from "react";
 import Confirm from "./Confirm";
 import Empty from "./Empty";
 import Error from "./Error";

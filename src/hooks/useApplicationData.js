@@ -49,8 +49,6 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
-    console.log(appointments);
-
     let foundDay = getDay(state.day, state.days);
     const dayIndex = getDayIndex(state.day);
 
