@@ -50,7 +50,7 @@ const Appointment = (props) => {
   }
 
   return (
-    <article className='appointment'>
+    <article className='appointment' data-testid='appointment'>
       <Header time={props.time} />
       {mode === EMPTY && (
         <Empty
@@ -67,7 +67,7 @@ const Appointment = (props) => {
           onSave={save}
         />
       )}
-      {mode === SAVING && <Status />}
+      {mode === SAVING && <Status message='Saving' />}
       {mode === SHOW && (
         <Show
           student={props.interview.student}
