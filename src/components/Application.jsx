@@ -20,6 +20,7 @@ export default function Application(props) {
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
+    // TODO: Fix last appointment not being rendered? Potentially dom is hiding it cause it's off the screen? IDK
     return (
       <Appointment
         key={appointment.id}
@@ -36,26 +37,21 @@ export default function Application(props) {
   return (
     <main className='layout'>
       <section className='sidebar'>
-        {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
         <img
           className='sidebar--centered'
           src='images/logo.png'
           alt='Interview Scheduler'
         />
         <hr className='sidebar__separator sidebar--centered' />
-        <nav className='sidebar__menu'>
-          <DayList days={state.days} value={state.day} onChange={setDay} />
-        </nav>
+        <DayList days={state.days} value={state.day} onChange={setDay} />
+        <nav className='sidebar__menu'></nav>
         <img
           className='sidebar__lhl sidebar--centered'
           src='images/lhl.png'
           alt='Lighthouse Labs'
         />
       </section>
-      <section className='schedule'>
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
-        {schedule}
-      </section>
+      <section className='schedule'>{schedule}</section>
     </main>
   );
 }

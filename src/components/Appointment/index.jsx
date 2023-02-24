@@ -92,7 +92,7 @@ const Appointment = (props) => {
           onCancel={back}
         />
       )}
-      {mode === DELETING && <Status message='Deleting...' />}
+      {mode === DELETING && <Status message='Deleting' />}
       {mode === ERROR_DELETE && (
         <Error message='Error deleting appointment' onClose={back} />
       )}
