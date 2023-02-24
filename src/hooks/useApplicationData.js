@@ -63,7 +63,6 @@ export default function useApplicationData() {
     days[dayIndex] = foundDay;
 
     return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
-      console.log(`AXIOS RESULTS FOR ADDING: ${res}`);
       setState({ ...state, appointments, days });
     });
   }
@@ -90,8 +89,9 @@ export default function useApplicationData() {
     let days = state.days;
     days[dayIndex] = foundDay;
 
+    console.log(days);
+
     return axios.delete(`/api/appointments/${id}`, appointment).then((res) => {
-      console.log(`AXIOS RESULT FOR DELETING: ${res}`);
       setState({ ...state, appointments, days });
     });
   }

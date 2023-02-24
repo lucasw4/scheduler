@@ -24,6 +24,7 @@ const Appointment = (props) => {
     props.interview ? SHOW : EMPTY
   );
 
+  // Saves interview and transitions to the saving mode
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -41,6 +42,7 @@ const Appointment = (props) => {
       });
   }
 
+  // Deletes interview and transitions to the deleting mode
   function deleteInterview() {
     transition(DELETING, true);
     props

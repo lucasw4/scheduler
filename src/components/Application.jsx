@@ -10,7 +10,7 @@ import useApplicationData from "hooks/useApplicationData";
 import Appointment from "./Appointment";
 import DayList from "./DayList";
 
-export default function Application(props) {
+export default function Application() {
   const { state, setDay, bookInterview, cancelInterview } =
     useApplicationData();
 
@@ -20,7 +20,6 @@ export default function Application(props) {
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
-    // TODO: Fix last appointment not being rendered? Potentially dom is hiding it cause it's off the screen? IDK
     return (
       <Appointment
         key={appointment.id}
