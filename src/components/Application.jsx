@@ -50,7 +50,10 @@ export default function Application() {
           alt='Lighthouse Labs'
         />
       </section>
-      <section className='schedule'>{schedule}</section>
+      <section className='schedule'>
+        {schedule}
+        <Appointment key='hidden' time='5pm' />
+      </section>
     </main>
   );
 }
