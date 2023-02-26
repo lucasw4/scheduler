@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getDay } from "helpers/selectors";
+import { getAppointmentsForDay, getDay } from "helpers/selectors";
 import { useEffect, useState } from "react";
 
 export default function useApplicationData() {
@@ -38,7 +38,28 @@ export default function useApplicationData() {
     return daysOfWeek[day];
   }
 
+  function updateSpots(state, dayName) {
+    const dayIndex = getDayIndex(dayName);
+    const day = state.days[dayIndex];
+    const appointmentsForDay = getAppointmentsForDay(state, dayName);
+
+    let spots = 0;
+    day.appointments.forEach((app) => {
+      appointmentsForDay.forEach((appointment) => {
+        if (appointment.id === app && appointment.interview === null) {
+          spots += 1;
+        }
+      });
+    });
+
+    return spots;
+  }
+
   function bookInterview(id, interview) {
+    const dayIndex = getDayIndex(state.day);
+    let foundDay = state.days[dayIndex];
+    const updatedSpots = updateSpots(state, foundDay["name"]);
+
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -49,13 +70,10 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
-    let foundDay = getDay(state.day, state.days);
-    const dayIndex = getDayIndex(state.day);
-
     if (!state.appointments[id].interview) {
       foundDay = {
         ...foundDay,
-        spots: foundDay.spots - 1,
+        spots: updatedSpots - 1,
       };
     }
 
@@ -78,18 +96,19 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
-    let foundDay = getDay(state.day, state.days);
     const dayIndex = getDayIndex(state.day);
+    let foundDay = state.days[dayIndex];
+    const updatedSpots = updateSpots(state, foundDay["name"]);
 
     foundDay = {
       ...foundDay,
-      spots: foundDay.spots + 1,
+      spots: updatedSpots + 1,
     };
 
     let days = state.days;
     days[dayIndex] = foundDay;
 
-    console.log(days);
+    // console.log(days);
 
     return axios.delete(`/api/appointments/${id}`, appointment).then((res) => {
       setState({ ...state, appointments, days });

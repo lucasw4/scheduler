@@ -81,7 +81,7 @@ describe("Application", () => {
     );
 
     // 8. Check that the DayListItem with the text "Monday" also has the text "2 spots remaining".
-    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+    expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
 
     debug();
   });
@@ -109,7 +109,7 @@ describe("Application", () => {
     const day = getAllByTestId(container, "day").find((day) =>
       queryByText(day, "Monday")
     );
-    expect(getByText(day, "1 spot remaining"));
+    expect(getByText(day, "2 spots remaining"));
   });
 
   it("shows the save error when failing to save an appointment", async () => {
@@ -144,7 +144,7 @@ describe("Application", () => {
       queryByText(day, "Monday")
     );
 
-    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+    expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
   });
 
   it("shows the delete error when failing to delete an existing appointment", async () => {
@@ -170,6 +170,6 @@ describe("Application", () => {
       queryByText(day, "Monday")
     );
 
-    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+    expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
   });
 });
