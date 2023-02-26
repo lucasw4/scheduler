@@ -2,6 +2,7 @@ import classNames from "classnames";
 import "components/DayListItem.scss";
 import React from "react";
 
+// Formats spots remaining for better readability in UI
 const formatSpots = (spots) => {
   if (spots === 1) {
     return "1 spot remaining";

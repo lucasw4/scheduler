@@ -24,7 +24,13 @@ const Appointment = (props) => {
     props.interview ? SHOW : EMPTY
   );
 
-  // Saves interview and transitions to the saving mode
+  /**
+   * Saves the interview to the database. This will trigger the show and saving actions depending on the state of the user's book.
+   *
+   * @param name - The student's name. This is used to set the interview's student field.
+   * @param interviewer - The interviewer that is booking this interview
+   */
+
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -41,8 +47,9 @@ const Appointment = (props) => {
         transition(ERROR_SAVE, true);
       });
   }
-
-  // Deletes interview and transitions to the deleting mode
+  /**
+   * Deletes interview from database and removes it from view - store. This is a destructive action
+   */
   function deleteInterview() {
     transition(DELETING, true);
     props
