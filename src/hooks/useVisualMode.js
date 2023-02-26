@@ -19,11 +19,11 @@ export default function useVisualMode(initial) {
   };
 
   const back = function () {
+    let historyCopy = [...history];
+    historyCopy.pop();
+    setHistory(historyCopy);
     // pop the history and set mode to the last one
-    if (history.length >= 1) {
-      let historyCopy = [...history];
-      historyCopy.pop();
-      setHistory(historyCopy);
+    if (history.length > 1) {
       setMode(historyCopy[historyCopy.length - 1]);
     }
   };
